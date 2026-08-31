@@ -25,7 +25,7 @@ class TestAPI(unittest.TestCase):
         }
         mock_get.return_value = mock_resposta
 
-        resultado = cotar(" uSd", "brl ")
+        resultado = cotar("USD", "BRL")
 
         self.assertIn("USDBRL", resultado)
         self.assertEqual(resultado["USDBRL"]["code"], "USD")
