@@ -13,6 +13,8 @@ def criar_arquivo():
         with open(arquivo, 'w', encoding='utf-8') as file:
             json.dump([], file)
 
+criar_arquivo()
+
 def salvar_historico(cotacao: dict):
     conteudo = list(cotacao.values())[0]
     dados = {

@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 def formatar_data_br(data: str):
     try:
