@@ -3,7 +3,7 @@ from datetime import datetime
 def formatar_data_br(data: str):
     try:
         dt = datetime.strptime(data, "%Y-%m-%d %H:%M:%S")
-        return dt.strftime("%d/%m/%Y às %H:%M")
+        return dt.strftime("%d/%m/%Y - %H:%M")
     except ValueError:
         return data
 

@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from src import formatar_moeda, ler_historico
+from src import ler_historico, formatar_moeda, validar_e_converter_valor
 
 class HistoryWindow(ctk.CTkToplevel):
     def __init__(self, parent):
@@ -33,8 +33,7 @@ class HistoryWindow(ctk.CTkToplevel):
             texto_card = (
                 f"Data: {item['data']}\n"
                 f"Par: {item['moeda_origem']} -> {item['moeda_destino']} | "
-                f"Cotação: {item['cotacao']}\n"
-                f"Mín/Máx (24h): {item['min']}/{item['max']}"
+                f"Cotação: {formatar_moeda(validar_e_converter_valor(str(item['cotacao'])), item['moeda_destino'])}\n"
             )
 
             card = ctk.CTkFrame(self.frame_historico)

@@ -2,7 +2,7 @@ import os
 import json
 from src.utils import formatar_data_br
 
-arquivo = 'Painel_Cotacao/data/historico.json'
+arquivo = 'data/historico.json'
 
 def criar_arquivo():
     # Cria a pasta 'data' se não existir

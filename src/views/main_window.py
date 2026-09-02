@@ -72,6 +72,10 @@ class MainWindow(ctk.CTk):
             destino = self.ent_destino.get()
             valor = validar_e_converter_valor(self.ent_valor.get())
 
+            self.ent_origem.delete(0, ctk.END)
+            self.ent_destino.delete(0, ctk.END)
+            self.ent_valor.delete(0, ctk.END)
+
             dados_cotacao = cotar(origem, destino)
             salvar_historico(dados_cotacao)
 
@@ -79,7 +83,7 @@ class MainWindow(ctk.CTk):
             taxa = (float(conteudo["bid"]) + float(conteudo["ask"])) / 2
             total_convertido = valor * taxa
 
-            resultado_texto = f"Resultado: {formatar_moeda(total_convertido)}"
+            resultado_texto = f"Resultado: {formatar_moeda(total_convertido, destino)}\nCotação: {formatar_moeda(taxa, destino)}"
             self.lbl_resultado.configure(
                 text=resultado_texto, text_color="green"
             )
