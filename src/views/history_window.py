@@ -15,7 +15,7 @@ class HistoryWindow(ctk.CTkToplevel):
         self.carregar_historico()
 
     def criar_widgets(self):
-        self.lbl_titulo = ctk.CTkLabel(self, text="Histórico de Cotações", font=("Arial", 18, "bold"))
+        self.lbl_titulo = ctk.CTkLabel(self, text="Histórico de Cotações", font=("Arial", 20, "bold"))
         self.lbl_titulo.pack(pady=15)
 
         self.frame_historico = ctk.CTkScrollableFrame(self, width=440, height=300)

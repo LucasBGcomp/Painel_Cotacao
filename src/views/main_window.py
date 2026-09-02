@@ -9,41 +9,55 @@ class MainWindow(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Painel de Cotações e Conversão de Moedas")
-        self.geometry("540x624")
+        LARGURA = 500
+        ALTURA = 580
+        self.centralizar_janela(LARGURA, ALTURA)
         self.resizable(False, False)
 
         self.janela_historico = None
 
         self.criar_widgets()
 
+    def centralizar_janela(self, largura: int, altura: int):
+        largura_tela = self.winfo_screenwidth()
+        altura_tela = self.winfo_screenheight()
+        posx = int((largura_tela - largura) / 2)
+        posy = int((altura_tela - altura) / 2)
+        self.geometry(f"{largura}x{altura}+{posx}+{posy}")
+
     def criar_widgets(self):
         self.lbl_titulo = ctk.CTkLabel(
             self,
             text="Conversor de Moedas",
-            font=ctk.CTkFont(size=20, weight="bold"),
+            font=ctk.CTkFont(size=25, weight="bold"),
         )
-        self.lbl_titulo.pack(pady=20)
+        self.lbl_titulo.pack(pady=25)
 
         self.ent_origem = ctk.CTkEntry(
-            self, placeholder_text="Moeda Origem (ex: USD)"
+            self, width=170, height=30, placeholder_text="Moeda Origem (ex: USD)"
         )
         self.ent_origem.pack(pady=8)
 
         self.ent_destino = ctk.CTkEntry(
-            self, placeholder_text="Moeda Destino (ex: BRL)"
+            self, width=170, height=30, placeholder_text="Moeda Destino (ex: BRL)"
         )
         self.ent_destino.pack(pady=8)
 
         self.ent_valor = ctk.CTkEntry(
-            self, placeholder_text="Valor (ex: 100,00)"
+            self, width=170, height=30,placeholder_text="Valor (ex: 100,00)"
         )
-        self.ent_valor.pack(pady=8)
+        self.ent_valor.pack(pady=20)
 
         # Botão de Ação: Convert
         self.btn_converter = ctk.CTkButton(
-            self, text="Converter", command=self.executar_conversao
+            self, text="Converter", command=self.executar_conversao, font=ctk.CTkFont(size=14, weight="bold")
         )
-        self.btn_converter.pack(pady=15)
+        self.btn_converter.pack(pady=20)
+
+        self.lbl_resultado = ctk.CTkLabel(
+            self, text="", font=ctk.CTkFont(size=15)
+        )
+        self.lbl_resultado.pack(pady=51)
 
         # Botão para abrir a Janela de Histórico
         self.btn_historico = ctk.CTkButton(
@@ -52,13 +66,11 @@ class MainWindow(ctk.CTk):
             fg_color="transparent",
             border_width=1,
             command=self.abrir_historico,
+            font=ctk.CTkFont(size=12, weight="bold")
         )
-        self.btn_historico.pack(pady=5)
+        self.btn_historico.pack(pady=51)
 
-        self.lbl_resultado = ctk.CTkLabel(
-            self, text="", font=ctk.CTkFont(size=14)
-        )
-        self.lbl_resultado.pack(pady=20)
+        
 
     def abrir_historico(self):
         if (self.janela_historico is None or not self.janela_historico.winfo_exists()):
