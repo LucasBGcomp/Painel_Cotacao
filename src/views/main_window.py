@@ -9,13 +9,12 @@ class MainWindow(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Painel de Cotações e Conversão de Moedas")
-        LARGURA = 500
-        ALTURA = 580
+        LARGURA = 480
+        ALTURA = 620
         self.centralizar_janela(LARGURA, ALTURA)
         self.resizable(False, False)
 
         self.janela_historico = None
-
         self.criar_widgets()
 
     def centralizar_janela(self, largura: int, altura: int):
@@ -29,48 +28,89 @@ class MainWindow(ctk.CTk):
         self.lbl_titulo = ctk.CTkLabel(
             self,
             text="Conversor de Moedas",
-            font=ctk.CTkFont(size=25, weight="bold"),
+            font=ctk.CTkFont(size=24, weight="bold"),
         )
-        self.lbl_titulo.pack(pady=25)
+        self.lbl_titulo.pack(pady=(25, 5))
 
+        self.lbl_subtitulo = ctk.CTkLabel(
+            self,
+            text="Consulte cotações em tempo real e converta valores",
+            font=ctk.CTkFont(size=12),
+            text_color="gray70",
+        )
+        self.lbl_subtitulo.pack(pady=(0, 20))
+
+        self.card_inputs = ctk.CTkFrame(self, corner_radius=12)
+        self.card_inputs.pack(padx=30, pady=10, fill="x")
+
+        # Campo: Moeda Origem
         self.ent_origem = ctk.CTkEntry(
-            self, width=170, height=30, placeholder_text="Moeda Origem (ex: USD)"
+            self.card_inputs,
+            placeholder_text="Moeda Origem (ex: USD)",
+            width=320,
+            height=40,
+            corner_radius=8,
         )
-        self.ent_origem.pack(pady=8)
+        self.ent_origem.pack(pady=(15, 8), padx=20)
 
+        # Campo: Moeda Destino
         self.ent_destino = ctk.CTkEntry(
-            self, width=170, height=30, placeholder_text="Moeda Destino (ex: BRL)"
+            self.card_inputs,
+            placeholder_text="Moeda Destino (ex: BRL)",
+            width=320,
+            height=40,
+            corner_radius=8,
         )
-        self.ent_destino.pack(pady=8)
+        self.ent_destino.pack(pady=8, padx=20)
 
+        # Campo: Valor
         self.ent_valor = ctk.CTkEntry(
-            self, width=170, height=30,placeholder_text="Valor (ex: 100,00)"
+            self.card_inputs,
+            placeholder_text="Valor (ex: 100,00)",
+            width=320,
+            height=40,
+            corner_radius=8,
         )
-        self.ent_valor.pack(pady=20)
+        self.ent_valor.pack(pady=(8, 15), padx=20)
 
-        # Botão de Ação: Convert
+        # Botão: Converter
         self.btn_converter = ctk.CTkButton(
-            self, text="Converter", command=self.executar_conversao, font=ctk.CTkFont(size=14, weight="bold")
+            self,
+            text="Converter",
+            width=320,
+            height=42,
+            corner_radius=8,
+            font=ctk.CTkFont(size=15, weight="bold"),
+            command=self.executar_conversao,
         )
         self.btn_converter.pack(pady=20)
 
-        self.lbl_resultado = ctk.CTkLabel(
-            self, text="", font=ctk.CTkFont(size=15)
-        )
-        self.lbl_resultado.pack(pady=51)
+        # Container do Resultado
+        self.card_resultado = ctk.CTkFrame(self, fg_color="transparent")
+        self.card_resultado.pack(padx=30, pady=10, fill="both", expand=True)
 
-        # Botão para abrir a Janela de Histórico
+        self.lbl_resultado = ctk.CTkLabel(
+            self.card_resultado,
+            text="",
+            font=ctk.CTkFont(size=15, weight="bold"),
+            justify="center",
+        )
+        self.lbl_resultado.pack(expand=True)
+
+        # Botão: Histórico de Cotações
         self.btn_historico = ctk.CTkButton(
             self,
-            text="Ver Histórico de Cotações",
+            text="Histórico de Cotações",
+            width=220,
+            height=32,
+            corner_radius=8,
             fg_color="transparent",
             border_width=1,
+            font=ctk.CTkFont(size=13),
+            text_color=("gray10", "gray90"),
             command=self.abrir_historico,
-            font=ctk.CTkFont(size=12, weight="bold")
         )
-        self.btn_historico.pack(pady=51)
-
-        
+        self.btn_historico.pack(pady=(0, 20), side="bottom")
 
     def abrir_historico(self):
         if (self.janela_historico is None or not self.janela_historico.winfo_exists()):
@@ -84,10 +124,6 @@ class MainWindow(ctk.CTk):
             destino = self.ent_destino.get()
             valor = validar_e_converter_valor(self.ent_valor.get())
 
-            self.ent_origem.delete(0, ctk.END)
-            self.ent_destino.delete(0, ctk.END)
-            self.ent_valor.delete(0, ctk.END)
-
             dados_cotacao = cotar(origem, destino)
             salvar_historico(dados_cotacao)
 
@@ -99,9 +135,14 @@ class MainWindow(ctk.CTk):
             self.lbl_resultado.configure(
                 text=resultado_texto, text_color="green"
             )
+
         except (ValueError, ConnectionError) as erro:
             self.lbl_resultado.configure(text=str(erro), text_color="red")
         except Exception as erro:
             self.lbl_resultado.configure(
                 text=f"Erro inesperado: {erro}", text_color="red"
             )
+        finally:
+            self.ent_origem.delete(0, ctk.END)
+            self.ent_destino.delete(0, ctk.END)
+            self.ent_valor.delete(0, ctk.END)

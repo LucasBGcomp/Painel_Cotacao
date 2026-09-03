@@ -6,13 +6,22 @@ class HistoryWindow(ctk.CTkToplevel):
         super().__init__(parent)
 
         self.title("Histórico de Cotações")
-        self.geometry("500x400")
+        LARGURA = 500
+        ALTURA = 400
+        self.centralizar_janela(LARGURA, ALTURA)
         self.resizable(False, False)
 
         self.grab_set()
 
         self.criar_widgets()
         self.carregar_historico()
+
+    def centralizar_janela(self, largura: int, altura: int):
+            largura_tela = self.winfo_screenwidth()
+            altura_tela = self.winfo_screenheight()
+            posx = int((largura_tela - largura) / 2)
+            posy = int((altura_tela - altura) / 2)
+            self.geometry(f"{largura}x{altura}+{posx}+{posy}")
 
     def criar_widgets(self):
         self.lbl_titulo = ctk.CTkLabel(self, text="Histórico de Cotações", font=("Arial", 20, "bold"))
