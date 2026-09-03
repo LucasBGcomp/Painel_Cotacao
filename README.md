@@ -19,7 +19,7 @@ Aplicação desktop em Python para consultar cotações de moedas em tempo real 
 
 1. Clone o repositório:
 ```bash
-   git clone https://github.com/LucasBGcomp/Painel_Cotacao.git
+   git clone https://github.com/seu-usuario/Painel_Cotacao.git
    cd Painel_Cotacao
 ```
 
@@ -35,17 +35,19 @@ Aplicação desktop em Python para consultar cotações de moedas em tempo real 
 
 ## Estrutura do projeto
 
+```
 Painel_Cotacao/
-├── main.py # Ponto de entrada da aplicação
+├── main.py                    # Ponto de entrada da aplicação
 ├── src/
-│ ├── api.py # Consulta de cotações na AwesomeAPI
-│ ├── storage.py # Leitura e escrita do histórico (JSON)
-│ ├── utils.py # Formatação e validação de dados
-│ └── views/
-│ ├── main_window.py # Janela principal (conversão)
-│ └── history_window.py # Janela de histórico
+│   ├── api.py                 # Consulta de cotações na AwesomeAPI
+│   ├── storage.py             # Leitura e escrita do histórico (JSON)
+│   ├── utils.py                # Formatação e validação de dados
+│   └── views/
+│       ├── main_window.py     # Janela principal (conversão)
+│       └── history_window.py  # Janela de histórico
 └── data/
-└── historico.json # Histórico de cotações consultadas
+    └── historico.json         # Histórico de cotações consultadas
+```
 
 ## Autor
 
