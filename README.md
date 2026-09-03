@@ -19,7 +19,7 @@ Aplicação desktop em Python para consultar cotações de moedas em tempo real 
 
 1. Clone o repositório:
 ```bash
-   git clone https://github.com/seu-usuario/Painel_Cotacao.git
+   git clone https://github.com/LucasBGcomp/Painel_Cotacao.git
    cd Painel_Cotacao
 ```
 
